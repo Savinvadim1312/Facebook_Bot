@@ -45,3 +45,10 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+data/
+__pycache__/
+delete5.pyproj
+delete5.sln
+ghostdriver.log
+
