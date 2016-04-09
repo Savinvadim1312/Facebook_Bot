@@ -6,20 +6,19 @@ from link_finder import LinkFinder
 
 
 class Friends_finder():
-    def __init__(self, user_name, password, group_url):
+    def __init__(self, user_name, password):
         self.user_name = user_name
         self.password = password
-        self.group_url = group_url
         self.facebook_url = "https://www.facebook.com/"
         self.more_clicks = 0
         self.existent_people_links = set()
 
         self.setup()
         self.log_in()
-        self.go_to_group_page()
-        self.scroll_down_mannualy()        
-        self.gather_links()
-        self.append_links_to_queue()
+        while 1:
+            self.scroll_down_mannualy()        
+            self.gather_links()
+            self.append_links_to_queue()
     
     def setup(self):
         print('Seting up WebDriver')
@@ -58,11 +57,7 @@ class Friends_finder():
         print("When done, press any key to start gathering links")
         input()
 
-    def go_to_group_page(self):
-        try:
-            self.driver.get(self.group_url)
-        except:
-            pass
+
     
     def gather_links(self):
         print('gathering links, please wait ...')
@@ -78,7 +73,8 @@ class Friends_finder():
  
     def get_existent_links(self):
         with open("data/people_to_add.txt", "r") as f:
-            self.existent_people_links = f.read().splitlines()
+            for line in f:
+                self.existent_people_links.add(line.replace('\n', ''))
 
         with open("data/errors.txt", "r") as f:
             for line in f:
@@ -99,9 +95,12 @@ class Friends_finder():
         print( str(self.new_links_added) + ' Items were added to the queue file')
 
 if __name__ == "__main__":   
+    with open("data/accaunts.txt", "r") as file:
+        line = file.readline()
+        username = line.split()[0]
+        passw = line.split()[1] 
     b = Friends_finder(
-        'gavgaming2@gmail.com',
-        'gav123456gav',
-        'https://www.facebook.com/groups/736556223133435/members/'
+        username,
+        passw,
         )
   
