@@ -6,9 +6,14 @@ queue = Queue()
 accaunts = []
 
 def init():
+    mod = input("Hidden?  (y/n)")
+    if mod == "y":
+        m = 1
+    elif mod == "n":
+        m = 0
     with open("data/accaunts.txt", "r") as file:
         for line in file:
-            accaunts.append(Friend_add(line.split()[0], line.split()[1], 1))
+            accaunts.append(Friend_add(line.split()[0], line.split()[1], m))
 
 def init_queue():
     with open("data/people_to_add.txt", "r") as file:
